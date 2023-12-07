@@ -10,6 +10,11 @@
       "StackName": "amplify-ampmulhospra-main-120115",
       "StackId": "arn:aws:cloudformation:ap-northeast-1:693825121436:stack/amplify-ampmulhospra-main-120115/e408ece0-94ac-11ee-a803-0e0e2d7f6e97",
       "AmplifyAppId": "d22n8poeeyge4q"
+    },
+    "categories": {
+      "auth": {
+        "AmpMulHosPraAuth": {}
+      }
     }
   }
 }
