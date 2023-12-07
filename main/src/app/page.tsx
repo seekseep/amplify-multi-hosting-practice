@@ -1,5 +1,7 @@
+import Me from "./Me";
+
 export default function Home() {
   return (
-    <main>Home</main>
+    <Me />
   )
 }

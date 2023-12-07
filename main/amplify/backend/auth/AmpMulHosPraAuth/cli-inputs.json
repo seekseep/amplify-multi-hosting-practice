@@ -1,7 +1,7 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "resourceNameTruncated": "ampmul6c234baa",
+    "resourceNameTruncated": "ampmul9aea8c35",
     "userPoolName": "AmpMulHosPraUserPool",
     "autoVerifiedAttributes": [
       "email"
@@ -29,9 +29,9 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "AmpMul6c234baa_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "AmpMul9aea8c35_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "6c234baa",
+    "sharedId": "9aea8c35",
     "resourceName": "AmpMulHosPraAuth",
     "authSelections": "userPoolOnly",
     "useDefault": "manual",

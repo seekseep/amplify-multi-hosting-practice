@@ -16,7 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <body>
+      <body style={{
+        background: 'var(--amplify-colors-neutral-20)'
+      }}>
         <Providers>
           {children}
         </Providers>
