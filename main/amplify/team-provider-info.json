@@ -22,7 +22,8 @@
         "AmpMulHosPraApiCustomResolver": {
           "deploymentBucketName": "amplify-ampmulhospra-main-135718-deployment",
           "s3Key": "amplify-builds/AmpMulHosPraApiCustomResolver-764661517755456e412f-build.zip"
-        }
+        },
+        "AmpMulHosPraAuthPreTokenGeneration": {}
       }
     }
   }

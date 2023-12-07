@@ -28,7 +28,17 @@
   "auth": {
     "AmpMulHosPraAuth": {
       "customAuth": false,
-      "dependsOn": [],
+      "dependsOn": [
+        {
+          "attributes": [
+            "Arn",
+            "Name"
+          ],
+          "category": "function",
+          "resourceName": "AmpMulHosPraAuthPreTokenGeneration",
+          "triggerProvider": "Cognito"
+        }
+      ],
       "frontendAuthConfig": {
         "mfaConfiguration": "OFF",
         "mfaTypes": [
@@ -72,6 +82,11 @@
           "resourceName": "AmpMulHosPraApi"
         }
       ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "AmpMulHosPraAuthPreTokenGeneration": {
+      "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
