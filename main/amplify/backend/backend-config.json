@@ -1,4 +1,30 @@
 {
+  "api": {
+    "AmpMulHosPraApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "AmpMulHosPraAuth"
+        }
+      ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authAmpMulHosPraAuth"
+            }
+          }
+        }
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
+    }
+  },
   "auth": {
     "AmpMulHosPraAuth": {
       "customAuth": false,
@@ -25,6 +51,47 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "AmpMulHosPraApiCustomResolver": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "AmpMulHosPraAuth"
+        },
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "AmpMulHosPraApi"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_AmpMulHosPraApiCustomResolver_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AmpMulHosPraApiCustomResolver"
+        }
+      ]
+    },
+    "AMPLIFY_function_AmpMulHosPraApiCustomResolver_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AmpMulHosPraApiCustomResolver"
+        }
+      ]
     }
   }
 }

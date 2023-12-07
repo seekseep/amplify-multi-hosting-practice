@@ -1,0 +1,51 @@
+type Team @model @auth(rules: [
+  { allow: groups, groups: ["admin"] },
+  { allow: groups, groupsField: "id", groupClaim: "teams", operations: [get, update] },
+]) {
+  id: ID!
+  owner: ID!
+  name: String!
+  description: String
+  loggerId: String @index(name: "byLoggerId")
+  accounts: [Account] @hasMany(indexName: "byTeamId", fields: ["id"])
+  logs: [Log] @hasMany(indexName: "byTeamId", fields: ["id"])
+}
+
+type Account @model @auth(rules: [
+  { allow: groups, groups: ["admin"] },
+  { allow: groups, groupsField: "teamId", groupClaim: "teams" }
+]) {
+  id: ID!
+  name: String!
+  description: String
+  teamId: ID! @index(name: "byTeamId", queryField: "listAccountsByTeamId")
+  team: Team @hasOne(fields: ["teamId"])
+  logs: [Log] @hasMany(indexName: "byAccountId", fields: ["id"])
+}
+
+type Log @model @auth(rules: [
+  { allow: groups, groups: ["admin"] },
+  { allow: groups, groupsField: "teamId", groupClaim: "teams" }
+]) {
+  id: ID!
+  type: String!
+  accountId: ID! @index(name: "byAccountId", queryField: "listLogsByAccountId", sortKeyFields: ["createdAt"])
+  teamId: ID! @index(name: "byTeamId", queryField: "listLogsByTeamId", sortKeyFields: ["createdAt"])
+  account: Account @hasOne(fields: ["accountId"])
+  team: Team @hasOne(fields: ["teamId"])
+  createdAt: AWSDateTime!
+}
+
+input SetUpTeamInput {
+  name: String!
+  description: String!
+  loggerPassword: String!
+}
+
+type SetUpTeamResult {
+  id: ID!
+}
+
+type Mutation {
+  setUpTeam (input: SetUpTeamInput): SetUpTeamResult @function(name: "AmpMulHosPraApiCustomResolver-${env}")
+}
