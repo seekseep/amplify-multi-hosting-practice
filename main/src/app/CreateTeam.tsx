@@ -15,7 +15,7 @@ import { useMutation } from "@tanstack/react-query"
 import { generateClient } from 'aws-amplify/api'
 
 import * as mutations from '@/graphql/mutations'
-import { CreateTeamInput } from "@/API"
+import { SetUpTeamInput } from "@/API"
 import { useForm } from "react-hook-form"
 import { getErrorMessage } from "@/utilities/error"
 
@@ -24,20 +24,20 @@ const client = generateClient()
 export default function CreateTeam () {
   const theme = useTheme()
 
-  const methods = useForm<CreateTeamInput>({
+  const methods = useForm<SetUpTeamInput>({
     defaultValues: {
       name: '',
       description: '',
-      owner: ''
+      loggerPassword: '',
     }
   })
 
   const mutation = useMutation({
-    async mutationFn (input: CreateTeamInput) {
+    async mutationFn (input: SetUpTeamInput) {
       return await client.graphql({
-        query: mutations.createTeam,
+        query: mutations.setUpTeam,
         variables: {
-          input: input
+          input
         }
       })
     }
@@ -50,10 +50,13 @@ export default function CreateTeam () {
         as="form" direction="column" gap={theme.tokens.space.medium}
         onSubmit={methods.handleSubmit((values) => mutation.mutate(values))}>
         <TextField
-          label="name"
+          label="Name"
           {...methods.register("name", { required: true })} />
         <TextAreaField
-          label="description"
+          label="Description"
+          {...methods.register("description", { required: true })} />
+        <TextField
+          label="Logger Password" type="password"
           {...methods.register("description", { required: true })} />
         {mutation.isError && (
           <Alert variation="error">{getErrorMessage(mutation.error)}</Alert>
